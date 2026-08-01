@@ -12,9 +12,9 @@ import numpy as np
 import streamlit as st
 
 #============ API KEYS AND ENV VARIABLES ============
-GOOGLE_API_KEY = "AQ.Ab8RN6K8rqxU64adnAmfxNtcyxv0reQcq_nOWEng4a_SYR-4dA"
-GROQ_API_KEY = "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"
-TAVILY_API_KEY = "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"
+TAVILY_API_KEY = st.sidebar.text_input("Tavily_API", type = "password")
+GOOGLE_API_KEY = st.sidebar.text_input("Google_API", type = "password")
+GROQ_API_KEY =  st.sidebar.text_input("Groq_API", type = "password")
 
 st.title("Agentic PPT Generator")
 st.header("User can generate, PPT, Images, and fetch Latest News")
@@ -71,12 +71,17 @@ def generate_image(img_prompt,slide_no = 1):
   return url
 
 # Agent Creation
-leader_agent = create_agent(
-    model = model,
-    tools = [search_latest_info,
-             #generate_image
-             ])
-# leader_agent
+if all(all_API):
+    leader_agent = create_agent(
+        model = model,
+        tools = [search_latest_info,
+                 #generate_image
+                 ])
+    leader_agent
+
+else:
+    st.info("Give API-Keys first to load Agent")
+
 
 def run_agent(agent, query):
   """This is the main agent, or leader agent
