@@ -75,6 +75,34 @@ def generate_image(img_prompt,slide_no = 1):
     f.write(content)
   return url
 
+def run_agent(agent, query):
+  """This is the main agent, or leader agent
+  orchestrate sub agents"""
+
+  # Giving prompt to create detailed prompt
+  # for code generation
+  prompt = f"""Based on Below given Query,
+  your task is to call specific tool, first to
+  promptify user prompt, than call image tool, or
+  latest search if required.give slide dynamic, ui ux,
+  with creative design, keep help of function to generate image
+  based on given topic,
+  Generate image using
+  with number of slide asked, and use time sleep to hit image request on server
+  and using file handling embed this in output html, use java script function
+  give Final response output in HTML, no markdowns
+  user query given below:
+  """
+  prompt = prompt+query
+
+  # prompt = agent_prompt(prompt)
+
+  response = leader_agent. invoke({'messages' : [ {'role':'user',
+                                                   'content' :prompt} ]})
+  code = response['messages'][-1].content[-1]['text']
+  return code
+
+
 # Agent Creation
 if all(all_API):
     leader_agent = create_agent(
@@ -108,18 +136,21 @@ if (user_input) & (leader_agent):
                     st.error("Error Code: ", err)
 
     with tab2:
-        if st.button("Click To Generate Image", key = "Image-Button"):
+        if st.button("Fetch Latest News", key = "News-Button"):
             with st.spinner("Running Agent"):
                 try:
-                    url = generate_image(user_input)
-                    import requests as r 
-                    img_data = r.get(url)
-                    st.image(url)
-                except Exception as err:
-                    st.error("Error Code: ", err)
+                    prompt = """Give Latest News related to given user query
+                    in dynamic HTML, output with cards design format,
+                    strict HTML output, no any markdowns response
+                    user query: """ + user_input
+                    
+                    response = leader_agent.invoke({'messages' : [ {'role':'user',
+                                                   'content' :prompt} ]})
+                    code = response['messages'][-1].content[-1]['text']
+                    st.html(code, width="stretch",unsafe_allow_javascript=True)
 
     with tab3:
-        if st.button("Click To Generate Image", key = "Image-Button"):
+        if st.button("Click To Generate PPT", key = "PPT-Button"):
             with st.spinner("Running Agent"):
                 try:
                     url = generate_image(user_input)
@@ -129,33 +160,6 @@ if (user_input) & (leader_agent):
                 except Exception as err:
                     st.error("Error Code: ", err)
                     
-
-def run_agent(agent, query):
-  """This is the main agent, or leader agent
-  orchestrate sub agents"""
-
-  # Giving prompt to create detailed prompt
-  # for code generation
-  prompt = f"""Based on Below given Query,
-  your task is to call specific tool, first to
-  promptify user prompt, than call image tool, or
-  latest search if required.give slide dynamic, ui ux,
-  with creative design, keep help of function to generate image
-  based on given topic,
-  Generate image using
-  with number of slide asked, and use time sleep to hit image request on server
-  and using file handling embed this in output html, use java script function
-  give Final response output in HTML, no markdowns
-  user query given below:
-  """
-  prompt = prompt+query
-
-  # prompt = agent_prompt(prompt)
-
-  response = leader_agent. invoke({'messages' : [ {'role':'user',
-                                                   'content' :prompt} ]})
-  code = response['messages'][-1].content[-1]['text']
-  return code
 
 user = """Create ppt for presenter Osama Bin Laden
 Topic: 911 - American Tragedy
