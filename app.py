@@ -1,4 +1,4 @@
-# Step 1 =========== Load Modules =============
+# =========== Step 1: Load Modules =============
 
 import os
 import time
@@ -11,7 +11,7 @@ from tavily import TavilyClient
 import numpy as np
 import streamlit as st
 
-#============ API KEYS AND ENV VARIABLES ============
+#============ STEP 2: API KEYS AND ENV VARIABLES ============
 TAVILY_API_KEY = st.sidebar.text_input("Tavily_API", type = "password")
 GOOGLE_API_KEY = st.sidebar.text_input("Google_API", type = "password")
 GROQ_API_KEY =  st.sidebar.text_input("Groq_API", type = "password")
@@ -47,6 +47,8 @@ elif all(all_API):
     )
 else:
     st.info("TRY VALID API_KEYS")
+
+# ================ STEP 3: BACKEND =================
 
 def search_latest_info(query):
   """This function helps to give lastest
@@ -85,6 +87,26 @@ if all(all_API):
 else:
     st.info("Give API-Keys first to load Agent")
 
+# ============== STEP 4: STREAMLIT NAVBARS ===============
+
+tab1, tab2, tab3 = st.tabs(["Generate Image", 
+                           "Fetch News", 
+                           "Generate PPT"])
+
+user_input = st.text_area("Write Prompt & click Enter")
+
+if (user_input) & (leader_agent):
+    with tab1:
+        if st.button("Click To Generate Image", key = "Image-Button"):
+            with st.spinner("Running Agent"):
+                try:
+                    url = generate_image(user_input)
+                    import requests as r 
+                    img_data = r.get(url)
+                    st.image(url)
+                except Exception as err:
+                    st.error("Error Code: ", err)
+                    
 
 def run_agent(agent, query):
   """This is the main agent, or leader agent
