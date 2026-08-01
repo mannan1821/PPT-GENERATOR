@@ -45,14 +45,6 @@ elif all(all_API):
 else:
     st.info("TRY VALID API_KEYS")
 
-model = ChatGoogleGenerativeAI(
-    model = 'gemini-3.5-flash-lite',
-    google_api_key = GOOGLE_API_KEY
-)
-
-# response = model.invoke("Hello Buddy!")
-# response.content[-1]["text"]
-
 def search_latest_info(query):
   """This function helps to give lastest
   search using tavily based on given user query
@@ -63,8 +55,6 @@ def search_latest_info(query):
 
   response = client.search(query)
   return response
-
-search_latest_info("String Theory in Quantum Mechanics")
 
 # Tool 2
 def generate_image(img_prompt,slide_no = 1):
@@ -78,12 +68,7 @@ def generate_image(img_prompt,slide_no = 1):
   content = r.get(url).content
   with open(f"ai_image_{slide_no}.jpeg",'wb') as f:
     f.write(content)
-
-  from PIL import Image
-  img = Image.open(f"ai_image_{slide_no}.jpeg")
-  return img
-
-generate_image("A carrot holding a baseball bat and has human eyes, eybrows, teeth and mouth")
+  return url
 
 # Agent Creation
 leader_agent = create_agent(
