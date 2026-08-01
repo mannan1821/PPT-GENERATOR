@@ -165,5 +165,5 @@ if (user_input):
                         st.success("PPT Downloaded Successfully")
                         
                 except Exception as err:
-                    st.error("Error Code: ", err)
+                    st.error(f"Error Code: {err}")
                     
