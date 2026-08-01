@@ -165,32 +165,3 @@ if (user_input) & (leader_agent):
                 except Exception as err:
                     st.error("Error Code: ", err)
                     
-
-user = """Create ppt for presenter Osama Bin Laden
-Topic: 911 - American Tragedy
-10 slides"""
-code = run_agent(leader_agent, user)
-ip.display.HTML (code)
-
-if st.button("Generate Resume"):
-    with st.spinner("al-qaeda initiated"):
-        raw_code = main_agent(legend_agent, user_info)
-        
-        code = raw_code.replace("```html", "").replace("```", "").strip()
-        
-        st.html(code, width="stretch", unsafe_allow_javascript=True)
-        
-        st.divider() # to give horizontal div
-    
-        raw_job_code = get_jobs(agent, location, profile)
-        job_code = raw_job_code.replace("```html", "").replace("```", "").strip()
-        
-        st.html(job_code, width="stretch", unsafe_allow_javascript=True)
-
-# File save
-with open("ppt.html", 'w') as f:
-  f.write(code)
-
-# Only for colab user to download file
-from google.colab import files
-files.download("ppt.html")
