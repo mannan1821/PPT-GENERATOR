@@ -39,7 +39,8 @@ if not all(all_API):
 elif all(all_API):
     st.success("API KEYS LOADED SUCCESSFULLY")
     options = ["gemini-3.5-flash-lite", "gemini-3.5-flash",
-              "gemini-2.5-flash-lite", "gemini-2.5-flash"]
+              "gemini-2.5-flash-lite", "gemini-2.5-flash",
+               "Qwen"]
 
     selected_model = st.selectbox("Select-Model", options = options)
   
@@ -47,6 +48,11 @@ elif all(all_API):
     model = 'gemini-3.5-flash',
     google_api_key = GOOGLE_API_KEY
     )
+
+    groq_llm = ChatGroq(
+    model="qwen/qwen3.6-27b",
+    api_key = GROQ_API_KEY
+)
 else:
     st.info("TRY VALID API_KEYS")
 
