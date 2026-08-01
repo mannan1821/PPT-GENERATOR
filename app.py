@@ -36,7 +36,7 @@ if not all(all_API):
 
 elif all(all_API):
     st.success("API KEYS LOADED SUCCESSFULLY")
-    options = ["gemini-3.5-flash-lite", "gemini-3.5-flash"
+    options = ["gemini-3.5-flash-lite", "gemini-3.5-flash",
               "gemini-2.5-flash-lite", "gemini-2.5-flash"]
 
     selected_model = st.selectbox("Select-Model", options = options)
