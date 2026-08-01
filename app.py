@@ -106,6 +106,28 @@ if (user_input) & (leader_agent):
                     st.image(url)
                 except Exception as err:
                     st.error("Error Code: ", err)
+
+    with tab2:
+        if st.button("Click To Generate Image", key = "Image-Button"):
+            with st.spinner("Running Agent"):
+                try:
+                    url = generate_image(user_input)
+                    import requests as r 
+                    img_data = r.get(url)
+                    st.image(url)
+                except Exception as err:
+                    st.error("Error Code: ", err)
+
+    with tab3:
+        if st.button("Click To Generate Image", key = "Image-Button"):
+            with st.spinner("Running Agent"):
+                try:
+                    url = generate_image(user_input)
+                    import requests as r 
+                    img_data = r.get(url)
+                    st.image(url)
+                except Exception as err:
+                    st.error("Error Code: ", err)
                     
 
 def run_agent(agent, query):
