@@ -11,6 +11,8 @@ from tavily import TavilyClient
 import numpy as np
 import streamlit as st
 
+st.set_page_config(layout = "wide")
+
 #============ STEP 2: API KEYS AND ENV VARIABLES ============
 TAVILY_API_KEY = st.sidebar.text_input("Tavily_API", type = "password")
 GOOGLE_API_KEY = st.sidebar.text_input("Google_API", type = "password")
