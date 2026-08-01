@@ -31,6 +31,9 @@ if not all(all_API):
     url ="https://app.tavily.com/playground"
     st.markdown(f"Get Tavily API key-{url}")
 
+    url = "https://console.groq.com/keys"
+    st.markdown(f"Get Groq API key-{url}")
+
 elif all(all_API):
     st.success("API KEYS LOADED SUCCESSFULLY")
     options = ["gemini-3.5-flash-lite", "gemini-3.5-flash"
